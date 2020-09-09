@@ -1,0 +1,25 @@
+//works on leet but ques is diff from gfg
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        
+        if(matrix.empty() || matrix[0].empty())
+            return false;
+        int i=0,j=matrix[0].size()-1;
+        bool ans = false;
+        while(i<matrix.size() && j>=0)
+        {
+            if(matrix[i][j] == target)
+            {
+                ans = true;break;
+            }
+            else if(matrix[i][j]>target)
+                j--;
+            else
+                i++;
+        }
+        return ans;
+    }
+};
+
+//pure b_search

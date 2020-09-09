@@ -1,0 +1,11 @@
+initial low =0, high =1;
+if (low <= high) {
+            int mid = low + (high - low) / 2;
+            if (A[mid] == key)
+                return mid;
+            else if (A[mid] < key)
+                return solve(A, mid + 1, 2 * high, key);//the main task is to keep the upper limit increaing as multiple of 2
+            else
+                return solve(A, low, mid - 1, key);
+        } else
+            return -1;

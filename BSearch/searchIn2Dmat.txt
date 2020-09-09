@@ -1,0 +1,30 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	//code
+	int t,n,m;
+	cin>>t;
+	while(t--)
+	{
+	    cin>>n>>m;
+	    int arr[n+1][m+1];
+	    for(int i=1;i<=n;i++)
+	        for(int j=1;j<=m;j++)
+	            cin>>arr[i][j];
+	    int x;
+	    cin>>x;
+	    int i=1,j=m,ans=0;
+	    while(i<=n && j>=0)
+	    {
+	        if(x==arr[i][j])
+	            {ans=1;break;}
+	        else if(arr[i][j]>x)
+	            j--;
+	        else
+	            i++;
+	    }
+	    cout<<ans<<endl;
+	}
+	return 0;
+}
