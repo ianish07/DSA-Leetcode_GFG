@@ -1,0 +1,111 @@
+class Solution {
+public:
+struct comp{
+bool operator()(pair<int,int> &a,pair<int,int> &b)
+{
+    if(a.second==b.second)
+        return a.first>b.first;
+    
+    return a.second<b.second;
+}
+};
+
+    string frequencySort(string s) {
+        
+        unordered_map<int,int> m;
+        string ans;
+	    for(int i=0;i<s.size();i++)
+	    {	        
+	        m[s[i]]++;
+	    }
+        priority_queue<pair<int,int>, vector<pair<int,int>>, comp> pq(m.begin(),m.end());
+        while(!pq.empty())
+	    {
+	        int f = pq.top().second;
+            
+	        while(f--)
+	            ans+=pq.top().first;
+	        pq.pop();     
+	    }
+        return ans;
+    }
+};
+
+//check bucket sort
+
+class Solution {
+public:
+    string frequencySort(string s) {
+        unordered_map<char,int> freq;
+        vector<string> bucket(s.size()+1, "");
+        string res;
+        
+        //count frequency of each character
+        for(char c:s) freq[c]++;
+        //put character into frequency bucket
+        for(auto& it:freq) {
+            int n = it.second;
+            char c = it.first;
+            bucket[n].append(n, c);
+        }
+        //form descending sorted string
+        for(int i=s.size(); i>0; i--) {
+            if(!bucket[i].empty())
+                res.append(bucket[i]);
+        }
+        return res;
+    }
+};
+
+///even better
+
+After observing above fact that we have at most 256 char only, we can totally remove both of the dependency;
+Bucketing : to reducing the memory consumption
+Kind a Sorting{bucketing is also a sort but in linear time}: With linear search
+
+Runtime: 2 ms, faster than 100.00% of Java online submissions for Sort Characters By Frequency.
+Memory Usage: 38.6 MB, less than 92.59% of Java online submissions for Sort Characters By Frequency.
+
+Time: O(n) + O(m^2) + (n) = O(n) since O(n) >>>> O(m^2) as m is 256 at max
+Space: O(n)
+
+ public String frequencySort(String s) {
+        if (s == null || s.isEmpty())
+            return s;
+        int n = s.length();
+
+        int freq[] = new int[256];
+
+        for (char c : s.toCharArray())
+            freq[(int) c]++;
+
+
+        char output[] = new char[n];
+        int x = 0;
+
+        int max;
+        int index;
+        while (x < n) {
+            max = 0;
+            index = -1;
+            for (int i = 0; i < freq.length; i++) {
+
+                if (max < freq[i]) {
+                    max = freq[i];
+                    index = i;
+                }
+            }
+            //all elements are over
+            if (max == 0) {
+                return new String(output);
+            }
+            int temp = max;
+            while (temp-- > 0)
+                output[x++] = (char) index;
+
+            freq[index] = 0; //nullify this character as it used.
+        }
+
+
+        return new String(output);
+    }
