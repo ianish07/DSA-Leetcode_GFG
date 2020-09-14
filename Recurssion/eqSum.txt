@@ -1,0 +1,61 @@
+void equal(int n, int diff=0,string l="",string r="")
+
+{
+
+    if(n==0)
+
+    {
+
+        if(diff == 0)
+
+        {
+
+            cout<<l+r;
+
+        }
+
+    }
+
+    if(n==1)
+
+    {
+
+        if(diff == 0)
+
+        {
+
+            cout<<l+'0'+r;
+
+            cout<<l+'1'+r;
+
+        }
+
+    }
+
+    /* If difference is more than what can be  ///get explaination
+
+       be covered with remaining n digits
+ 
+       (Note that lengths of left and right
+ 
+        must be same) */
+
+    if ((2 * abs(di) <= n))
+{
+
+    if(l!="")
+
+    {
+
+        equal(n-2,diff,l+'0',r+'0');
+
+        equal(n-2,diff-1,l+'0',r+'1');
+
+    }
+
+    equal(n-2,diff+1,l+'1',r+'0');
+
+    equal(n-2,diff,l+'1',r+'1');
+
+    
+}}

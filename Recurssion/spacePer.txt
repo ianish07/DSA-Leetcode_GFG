@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+
+void func(string s,int i,int n,string curr)
+
+{
+
+    if(i==n)
+
+    {
+
+        cout<<"(";
+
+        cout<<s[0]<<curr<<")";
+
+        return;
+
+    }
+
+        //v.push_back(curr);
+
+    
+    func(s,i+1,n,curr+" "+s[i]);
+
+    func(s,i+1,n,curr+s[i]);
+
+}
+
+int main()
+{
+
+	//code
+
+	//vector<string> v;
+
+	int t;
+
+	cin>>t;
+
+	while(t--)
+
+	{
+
+	    string s;
+
+	    cin>>s;
+
+	    func(s,1,s.length(),"");
+
+	    cout<<"\n";
+
+	}
+
+	return 0;
+
+}

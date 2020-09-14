@@ -1,0 +1,27 @@
+void combi(char in,char op,int i,int len)
+
+{
+
+    if(in[i] == "\0")
+
+    {
+
+        ou[len] ='\0';
+
+        cout<<op<<endl;
+
+    }
+
+    op[len] = in[i];
+
+    
+op[len+1] = ' ';
+
+    
+    combi(in,op,i+1,len+2);
+
+    if(in[i+1] != '\0')
+
+        combi(in,op,i+1,len+1);
+
+}

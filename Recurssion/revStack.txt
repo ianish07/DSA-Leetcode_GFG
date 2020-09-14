@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+
+void reverse()
+
+{
+
+    int x = st.top();
+
+    st.pop();
+
+    reverse();
+
+    //inserting at bottom 1 by 1
+
+    atbottom(x);
+
+}
+
+
+void atbottom(int x)
+
+{
+
+    if(st.size() == 0)
+
+        st.push(x);
+
+    else
+
+    {
+
+        int y = st.top();
+
+        st.pop();
+
+        atbottom(x);
+
+        st.push(y);
+
+    }
+
+}

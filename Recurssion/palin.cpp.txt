@@ -1,0 +1,17 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+void reverse(num,temp)
+
+{
+
+    if(num == 0)
+
+        return;
+
+    temp = (temp*10) + (num/10);
+
+    return (num/10,temp);
+
+}

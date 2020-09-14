@@ -1,0 +1,29 @@
+#include <iostream>
+using namespace std;
+
+void solve(int ones,int zeros,int n,string op)
+{
+    if(n == 0)
+    {
+        cout<<op<<" ";
+        return;
+    }
+    
+    solve(ones+1,zeros,n-1,op+'1');
+    if(zeros<ones)
+        solve(ones,zeros+1,n-1,op+'0');
+}
+int main() {
+	//code
+	int t,n;
+	cin>>t;
+	while(t--)
+	{
+	    cin>>n;
+	    int ones=0,zeros=0;
+	    string op="";
+	    solve(ones,zeros,n,op);
+	    cout<<endl;
+	}
+	return 0;
+}

@@ -1,0 +1,75 @@
+void solve(vector <string>&v,string ip,string op)
+
+{
+
+    
+    if(ip.length() == 0)
+
+   {
+
+       v.push_back(op);
+
+       //v.push_back("");
+       return;
+
+   }
+
+   string op1 = op;
+
+   string op2 = op;
+
+   op2.push_back(ip[0]);
+
+   ip.erase(ip.begin()+0);
+
+   solve(v,ip,op1);
+
+   solve(v,ip,op2);
+
+   
+}
+
+vector <string> powerSet(string s)
+
+{
+
+   //Your code here
+vector <string> st;
+
+   string op="";
+
+   vector <string> v;
+
+   solve(v,s,op);
+
+   sort(v.begin(),v.end());
+
+   return v;
+
+}
+
+//alternative
+void solve(vector <string>&v,string ip,string curr,int i)
+
+{
+
+    
+    if(ip.length() == i)
+
+   {
+
+       v.push_back(curr);
+
+             return;
+
+   }
+
+   
+
+   solve(v,ip,curr,i+1);
+
+   solve(v,ip,curr+s[i],i+1);
+
+   
+}
+

@@ -1,0 +1,31 @@
+class Solution {
+public:
+    void solve(string s,int i,int n,string curr,vector<string> &v)
+    {
+        if(i==n)
+        {
+            v.push_back(curr);
+            return;
+        }
+        char s1;
+        if(isalpha(s[i]))
+        {
+            if(s[i]>='a' && s[i]<='z')
+            s1=toupper(s[i]);
+            else if(s[i]>='A' && s[i]<='Z')
+            s1=tolower(s[i]);
+                
+            solve(s,i+1,n,curr+s[i],v);
+            solve(s,i+1,n,curr+s1,v);
+        }
+        else
+            solve(s,i+1,n,curr+s[i],v);
+        
+    }
+    vector<string> letterCasePermutation(string s) {
+        
+        vector<string> v;
+        solve(s,0,s.length(),"",v);
+        return v;
+    }
+};
