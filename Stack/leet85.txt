@@ -1,0 +1,189 @@
+class Solution {
+public:
+    int hist(vector<int> &arr)
+    {
+        if(arr.empty())
+            return 0;
+        vector<int> right;
+	    vector<int> left;
+	    stack<pair<int,int>> s1;
+	    stack<pair<int,int>> s2;
+	    //smallest to right
+	    for(int i=arr.size()-1;i>=0;i--)
+	    {
+	        if(s1.empty())
+	            right.push_back(arr.size());
+	        
+	        else if(s1.size()>0 && s1.top().first<arr[i])
+	            right.push_back(s1.top().second);
+	       
+	        else if(s1.size()>0 && s1.top().first>=arr[i])
+	        {
+	            while(s1.size()>0 && s1.top().first>=arr[i]) 
+	                s1.pop();
+	           
+	            if(s1.size()==0)
+	                right.push_back(arr.size());
+	           else
+	                right.push_back(s1.top().second);
+	        }
+	        s1.push({arr[i],i});
+	    }
+	    reverse(right.begin(),right.end());
+	    
+	    //smallest to left
+	    for(int i=0;i<arr.size();i++)
+	    {
+	        if(s2.empty())
+	            left.push_back(-1);
+	        
+	        else if(s2.size()>0 && s2.top().first<arr[i])
+	            left.push_back(s2.top().second);
+	       
+	        else if(s2.size()>0 && s2.top().first>=arr[i])
+	        {
+	            while(s2.size()>0 &&s2.top().first>=arr[i]) 
+	                s2.pop();
+	           
+	            if(s2.size()==0)
+	                left.push_back(-1);
+	           else
+	                left.push_back(s2.top().second);
+	        }
+	        s2.push({arr[i],i});
+	    }
+	    
+	    vector<int> width;
+	    vector<int> area;
+	    
+	    for(int i=0;i<arr.size();i++)
+	        width.push_back(right[i]-left[i]-1);
+	    
+	    for(int i=0;i<arr.size();i++)
+        {
+            //int m = min();
+            area.push_back(arr[i]*width[i]);
+        }        
+	    
+	    return *max_element(area.begin(),area.end());     
+    }
+    
+    int maximalRectangle(vector<vector<char>> matrix) {
+        
+        if(matrix.empty())
+            return 0;
+        vector<int> v;
+        for(int j=0;j<matrix[0].size();j++)
+            v.push_back((int)(matrix[0][j]-'0'));
+        //cout<<(matrix[0][0]-'0'+matrix[0][1]-'0');
+        int mx= hist(v);
+        
+        for(int i=1;i<matrix.size();i++)
+        {
+            for(int j=0;j<matrix[i].size();j++)
+            {
+                if(matrix[i][j]==0)
+                    v[j]=0;
+                else
+                    v[j]=v[j]+(int)(matrix[i][j]-'0');
+            }
+            mx=max(mx,hist(v));
+        }
+        return mx;
+    }
+};
+
+
+//dodo - working
+
+class Solution {
+public:
+    int max_area(vector<int> &v){
+        int n=v.size();
+        vector<int> l(n,-1),r(n,n);
+        stack<int> st1,st2;
+        
+        for(int i=0;i<n;i++)
+        {
+            while(!st1.empty())
+            {
+                int x=st1.top();
+                if(v[x]>=v[i])
+                {
+                    st1.pop();
+                }
+                else
+                {
+                    l[i]=x;
+                    break;
+                }
+            }
+            st1.push(i);
+        }
+        
+        for(int i=n-1;i>=0;i--)
+        {
+            while(!st2.empty())
+            {
+                int x=st2.top();
+                if(v[x]>=v[i])
+                {
+                    st2.pop();
+                }
+                else
+                {
+                    r[i]=x;
+                    break;
+                }
+            }
+            st2.push(i);
+        }
+        
+        int ans=0;
+        for(int i=0;i<n;i++)
+        {
+            //int x=min(v[i],r[i]-l[i]-1);
+            ans=max(ans,v[i]*(r[i]-l[i]-1));
+        }
+        return ans;
+    }
+    
+    int maximalRectangle(vector<vector<char>>& matrix) 
+    {
+        int n=matrix.size();
+        if(n==0)
+        {
+            return 0;
+        }
+        int m=matrix[0].size();
+        if(m==0)
+        {
+            return 0;
+        }
+        vector<vector<int> > v(n,vector<int> (m));
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(i==0)
+                {
+                    v[i][j]=matrix[i][j]-'0';
+                }
+                else
+                {
+                    if(matrix[i][j]=='0')
+                        v[i][j]=0;
+                    else
+                        v[i][j]=v[i-1][j]+1;
+                }
+            }
+        }
+        
+        int ans=0;
+        for(int i=0;i<n;i++)
+        {
+            ans=max(ans,max_area(v[i]));
+        }
+        return ans;
+    }
+};
